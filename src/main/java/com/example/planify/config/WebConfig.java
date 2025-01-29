@@ -18,6 +18,5 @@ public class WebConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE")  // 허용할 HTTP 메서드
                         .allowedHeaders("*");  // 모든 헤더 허용
             }
-        };
-    }
+        };    }
 }
