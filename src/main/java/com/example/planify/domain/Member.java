@@ -2,9 +2,12 @@ package com.example.planify.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "members")  // 테이블명 지정
+@Table(name = "member")  // 테이블명 지정
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,13 +19,26 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키 자동 생성
     private Long id;
 
-    @Column(nullable = false, unique = true)  // 중복 방지
+    @Column(nullable = false, length = 50)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, length = 100)
+    private String email;
+
+    @Column(nullable = false, length = 255)
     private String password;
 
     @Column(nullable = false)
-    private String role;  // ROLE_USER, ROLE_ADMIN 등 저장 가능
+    private int authLevel = 1;
 
+    @Column(name = "regDate", nullable = false, updatable = false)
+    private LocalDateTime regDate = LocalDateTime.now();
+
+    @Column(name = "updateDate", nullable = false)
+    private LocalDateTime updateDate = LocalDateTime.now();
+
+    @PreUpdate
+    public void setUpdateDate(){
+        this.updateDate = LocalDateTime.now();
+    }
 }

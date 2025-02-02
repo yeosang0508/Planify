@@ -25,16 +25,17 @@ public class AuthService {
     * authRequest 사용자 인증 요청 DTO
     * 인증 성공 시 JWT 발급*/
     public String authenticate(AuthRequestDTO authRequest) {
-        // DTO에서 사용자명과 비밀번호
-        String username = authRequest.getUsername();
+        // DTO에서 이메일과 사용자 번호
+        String email = authRequest.getEmail();
+        Long memberId = authRequest.getId();
         String password = authRequest.getPassword();
 
         // Spring Security의 AuthenticationManager를 사용하여 사용자 인증 수행
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
+                new UsernamePasswordAuthenticationToken(email, password)
         );
 
         // 인증이 성공하면 JWT 토큰을 생성하여 반환
-        return jwtTokenProvider.generateToken(username);
+        return jwtTokenProvider.generateToken(email, memberId);
     }
 }

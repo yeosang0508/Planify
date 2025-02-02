@@ -21,4 +21,4 @@ spring:
 
 jwt:
   secret: 123412341234
-  expiration: 86400000  # 1? (??? ??)
+  expiration: 86400000
